@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Run schema + CI-refusal tests (no Hugo)
+        run: |
+          pytest -q --deselect tests/test_hugo_build.py
+
+      - name: Setup Hugo (for hugo build smoke test)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.130.0"
+          extended: true
+
+      - name: Run Hugo build smoke test
+        run: |
+          pytest -q tests/test_hugo_build.py

@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="papers-index">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}{{ . }}{{ end }}
+
+  <ul class="paper-list">
+    {{ range .Pages.ByDate.Reverse }}
+    <li class="paper-list-item">
+      <a href="{{ .RelPermalink }}" class="paper-link">{{ .Title }}</a>
+      <div class="paper-list-meta">
+        <code>{{ .Params.paper_id }}</code> ·
+        <code>{{ .Params.data_source }}</code> ·
+        {{ .Date.Format "2006-01-02" }}
+      </div>
+      {{ with .Params.banner }}
+      <div class="banner banner-inline">{{ . }}</div>
+      {{ end }}
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

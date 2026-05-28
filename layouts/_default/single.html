@@ -1,0 +1,36 @@
+{{ define "main" }}
+<article class="paper">
+  <header class="paper-header">
+    {{ with .Params.banner }}
+    <div class="banner">{{ . }}</div>
+    {{ end }}
+    <h1 class="paper-title">{{ .Title }}</h1>
+    <div class="paper-meta">
+      <span class="meta-item"><strong>Paper ID:</strong> <code>{{ .Params.paper_id }}</code></span>
+      <span class="meta-item"><strong>OPL version:</strong> <code>{{ .Params.opl_version }}</code></span>
+      <span class="meta-item"><strong>Data source:</strong> <code>{{ .Params.data_source }}</code></span>
+      <span class="meta-item"><strong>Patient ID hash:</strong> <code>{{ .Params.patient_id_hash }}</code></span>
+      {{ with .Params.extends_prior_run }}
+      <span class="meta-item"><strong>Extends prior run:</strong> <code>{{ . }}</code></span>
+      {{ end }}
+    </div>
+  </header>
+
+  <section class="paper-body">
+    {{ .Content }}
+  </section>
+
+  <footer class="paper-footer">
+    <p class="caveat">
+      <strong>N=1 reports are not clinical guidance.</strong> This paper
+      documents a single patient's session with an AI scientist team.
+      Treatment decisions remain with the patient and their clinical
+      team.
+    </p>
+    <p class="citation-block">
+      Cite as: <code>{{ .Title }}. N1Arxiv {{ .Params.paper_id }}.
+      {{ .Params.opl_version }}. {{ .Date.Format "2006-01-02" }}.</code>
+    </p>
+  </footer>
+</article>
+{{ end }}

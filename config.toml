@@ -1,0 +1,32 @@
+# N1Arxiv — Hugo config (v0.1.0)
+# Placeholder domain: n1arxiv.org if available, else n1arxiv.cancerdao.org
+# via GitHub Pages. v0.1 ships on the GitHub Pages fallback; the
+# `baseURL` is overridden by `build_site.yml` per deploy target.
+
+baseURL = "https://n1arxiv.cancerdao.org/"
+languageCode = "en-us"
+title = "N1Arxiv — N=1 case-report preprints"
+theme = ""  # minimal in-repo layouts; no external theme dependency
+enableEmoji = false
+enableRobotsTXT = true
+
+[params]
+  description = "Patient-centered preprint platform for AI-team-authored N=1 case reports. Submissions arrive as .n1a bundles (schema v0.1) via pull request."
+  banner = "N=1 reports are not clinical guidance."
+  canonical_schema = "https://github.com/CancerDAO/opl-cancer/blob/main/schemas/n1a_bundle.v0.1.schema.json"
+  opl_repo = "https://github.com/CancerDAO/opl-cancer"
+
+[permalinks]
+  papers = "/papers/:filename/"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+
+[markup.goldmark.renderer]
+  unsafe = true  # allow inline HTML in paper stubs (banner, tables)
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
